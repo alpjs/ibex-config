@@ -1,0 +1,32 @@
+{
+  "name": "ibex-config",
+  "version": "1.0.1",
+  "description": "config in ibex framework",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "make test",
+    "lint": "make lint",
+    "build": "make build",
+    "postpublish": "make post-publish",
+    "preversion": "make pre-version",
+    "version": "make version",
+    "watch": "make watch"
+  },
+  "repository": "alpjs/ibex-config",
+  "keywords": [
+    "alp",
+    "ibex"
+  ],
+  "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alpjs/ibex-config/issues"
+  },
+  "homepage": "https://github.com/alpjs/ibex-config#readme",
+  "devDependencies": {
+    "springbokjs-library": "^12.3.0"
+  },
+  "dependencies": {
+    "parse-json-object-as-map": "^1.0.1"
+  }
+}
