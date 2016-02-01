@@ -29,13 +29,13 @@ function deepFreeze(obj) {
 }
 
 function existsConfig(dirname, name) {
-    return System.import(dirname + name + '.json!text')
+    return System.import(`${dirname}${name}.json!text`)
         .catch(() => false)
         .then(res => !!res);
 }
 
 function loadConfig(dirname, name) {
-    return System.import(dirname + name + '.json!text')
+    return System.import(`${dirname}${name}.json!text`)
         .then(res => parseJSON(res));
 }
 
