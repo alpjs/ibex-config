@@ -27,6 +27,7 @@
     "springbokjs-library": "^14.0.1"
   },
   "dependencies": {
-    "parse-json-object-as-map": "^1.0.1"
+    "parse-json-object-as-map": "^1.0.1",
+    "stringify-json": "^1.0.0"
   }
 }

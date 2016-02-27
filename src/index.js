@@ -1,68 +1,75 @@
-import parseJSON from 'parse-json-object-as-map';
+/* global fetch */
+import storedConfig from './storedConfig';
 
-// const _config = global._ibexConfig || {};
+function fetchConfig(path) {
+    return fetch(`${path}.json`)
+        .then(res => res.json())
+        .catch(() => false);
+}
 
-// To make obj fully immutable, freeze each object in obj.
-// Also makes Array, Map and Set read-only.
-function deepFreeze(obj) {
-    if (obj instanceof Map) {
-        obj.clear = obj.delete = obj.set = function () {
-            throw new Error('map is read-only');
-        };
-    } else if (obj instanceof Set) {
-        obj.add = obj.clear = obj.delete = function () {
-            throw new Error('set is read-only');
-        };
+/**
+ * @param configPath
+ * @param name
+ * @returns {Promise|Map}
+ */
+function getConfig(path) {
+    if (storedConfig.has(path)) {
+        return storedConfig.get(path);
+    }
+    return fetchConfig(path);
+}
+
+/**
+ * @param configPath
+ * @param name
+ * @returns {Promise|Boolean}
+ */
+function existsConfig(path) {
+    if (storedConfig.has(path)) {
+        return storedConfig.get(path) !== false;
+    }
+    return fetchConfig(path);
+}
+
+const getOrFetchAppConfig = async function (version, environment, configPath) {
+    if (storedConfig.version === version && storedConfig.has('_appConfig')) {
+        return storedConfig.get('_appConfig');
     }
 
-    Object.getOwnPropertyNames(obj).forEach((name) => {
-        let prop = obj[name];
+    storedConfig.clear(version);
 
-        // Freeze prop if it is an object
-        if (typeof prop == 'object' && !Object.isFrozen(prop)) {
-            deepFreeze(prop);
+    const jsonConfig = await Promise.all([
+        getConfig(`${configPath}common`),
+        environment && getConfig(`${configPath}environment`),
+        getConfig(`${configPath}local`),
+    ]);
+    const config = jsonConfig[0] || new Map();
+    jsonConfig.slice(1).filter(Boolean).forEach(jsonConfig => {
+        for (let [key, value] of jsonConfig) {
+            config.set(key, value);
         }
     });
 
-    // Freeze self
-    return Object.freeze(obj);
-}
+    storedConfig.set('_appConfig', config);
+    return config;
+};
 
-function existsConfig(dirname, name) {
-    return System.import(`${dirname}${name}.json!text`)
-        .catch(() => false)
-        .then(res => !!res);
-}
-
-function loadConfig(dirname, name) {
-    return System.import(`${dirname}${name}.json!text`)
-        .then(res => parseJSON(res));
-}
-
-export default function aukConfig(dirname) {
-    dirname = dirname.replace(/\/*$/, '/');
+export default function ibexConfig(configPath) {
+    configPath = configPath.replace(/\/*$/, '/');
     return async function (app) {
-        app.existsConfig = (name) => existsConfig(dirname, name);
-        app.loadConfig = (name) => loadConfig(dirname, name);
+        app.existsConfig = (name) => existsConfig(`${configPath}${name}`);
+        app.loadConfig = (name) => getConfig(`${configPath}${name}`);
 
-        const config = await loadConfig(dirname, 'common');
+        const version = app.appVersion;
 
-        if (app.environment) {
-            for (let [key, value] of await loadConfig(dirname, app.environment)) {
-                config.set(key, value);
-            }
+        if (!version) {
+            throw new Error('Missing appVersion');
         }
 
-        if (existsConfig(dirname, 'local')) {
-            for (let [key, value] of await loadConfig(dirname, 'local')) {
-                config.set(key, value);
-            }
-        }
-
+        const config = getOrFetchAppConfig(version, app.environment, configPath);
         app.config = config;
         app.context.config = config;
         app.context.production = !!config.get('production');
-
-        return deepFreeze(config);
+        return config;
     };
 }
