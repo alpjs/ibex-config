@@ -1,5 +1,5 @@
 /* global fetch */
-import storedConfig from './storedConfig';
+import * as storedConfig from './storedConfig';
 
 function fetchConfig(path) {
     return fetch(`${path}.json`)
@@ -8,8 +8,7 @@ function fetchConfig(path) {
 }
 
 /**
- * @param configPath
- * @param name
+ * @param {string} path
  * @returns {Promise|Map}
  */
 function getConfig(path) {
@@ -20,8 +19,7 @@ function getConfig(path) {
 }
 
 /**
- * @param configPath
- * @param name
+ * @param {string} path
  * @returns {Promise|Boolean}
  */
 function existsConfig(path) {
