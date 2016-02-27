@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/alpjs/ibex-config#readme",
   "devDependencies": {
+    "babel-preset-modern-browsers": "^1.0.1",
     "springbokjs-library": "^14.0.1"
   },
   "dependencies": {

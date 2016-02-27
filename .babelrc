@@ -1,1 +1,7 @@
-node_modules/springbokjs-library/config-files/.babelrc
+{
+  "env": {
+    "browser": {
+      "presets": ["modern-browsers", "modern-browsers/stage1"]
+    }
+  }
+}
