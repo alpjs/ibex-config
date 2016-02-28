@@ -1,9 +1,11 @@
 /* global fetch */
 import * as storedConfig from './storedConfig';
+import parseJSON from 'parse-json-object-as-map';
 
 function fetchConfig(path) {
     return fetch(`${path}.json`)
-        .then(res => res.json())
+        .then(res => res.text())
+        .then(text => parseJSON(text))
         .catch(() => false);
 }
 
