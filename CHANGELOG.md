@@ -1,3 +1,7 @@
+### v2.0.0-beta4
+
+- [`ce541cd`](https://github.com/alpjs/ibex-config/commit/ce541cd5b32bfe03c44f98451c18378d2dda2ec3) build for modern browsers (Christophe Hurpeau)
+
 ### v2.0.0-beta3
 
 - [`04887fd`](https://github.com/alpjs/ibex-config/commit/04887fdb8a4f23207d3761fcc3d4621b5729d159) fix import storedConfig (Christophe Hurpeau)
