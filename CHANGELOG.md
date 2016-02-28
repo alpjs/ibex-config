@@ -1,3 +1,7 @@
+### v2.0.0-beta6
+
+- [`8ca7568`](https://github.com/alpjs/ibex-config/commit/8ca7568375cb6ed8373c5d8950ed5283c5a843e1) fetchConfig parse json object-as-map (Christophe Hurpeau)
+
 ### v2.0.0-beta5
 
 - [`ca9a614`](https://github.com/alpjs/ibex-config/commit/ca9a614a03f19f294593460e954397b301e1bd96) missing await (Christophe Hurpeau)
