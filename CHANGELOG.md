@@ -1,3 +1,7 @@
+### v2.0.0-beta5
+
+- [`ca9a614`](https://github.com/alpjs/ibex-config/commit/ca9a614a03f19f294593460e954397b301e1bd96) missing await (Christophe Hurpeau)
+
 ### v2.0.0-beta4
 
 - [`ce541cd`](https://github.com/alpjs/ibex-config/commit/ce541cd5b32bfe03c44f98451c18378d2dda2ec3) build for modern browsers (Christophe Hurpeau)
