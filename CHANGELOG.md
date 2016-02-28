@@ -1,3 +1,7 @@
+### v2.0.0
+
+
+
 ### v2.0.0-beta6
 
 - [`8ca7568`](https://github.com/alpjs/ibex-config/commit/8ca7568375cb6ed8373c5d8950ed5283c5a843e1) fetchConfig parse json object-as-map (Christophe Hurpeau)
