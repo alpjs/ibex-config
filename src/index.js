@@ -64,7 +64,7 @@ export default function ibexConfig(configPath) {
             throw new Error('Missing appVersion');
         }
 
-        const config = getOrFetchAppConfig(version, app.environment, configPath);
+        const config = await getOrFetchAppConfig(version, app.environment, configPath);
         app.config = config;
         app.context.config = config;
         app.context.production = !!config.get('production');
