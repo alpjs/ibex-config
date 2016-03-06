@@ -1,7 +1,1 @@
-{
-  "env": {
-    "browser": {
-      "presets": ["modern-browsers", "modern-browsers/stage1"]
-    }
-  }
-}
+node_modules/springbokjs-library/config-files/.babelrc
