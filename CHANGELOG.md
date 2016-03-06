@@ -1,3 +1,7 @@
+### v2.0.1
+
+- [`5e19f7b`](https://github.com/alpjs/ibex-config/commit/5e19f7bb9aa363fc06b2d9b6d948c0aa847b2bef) make compatible with older browsers (Christophe Hurpeau)
+
 ### v2.0.0
 
 
